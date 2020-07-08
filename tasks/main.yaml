@@ -1,0 +1,17 @@
+---
+- name: Win CNI | Ensure CNI directories exist
+  win_file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+  loop:
+    - "{{ win_cni_installation_path }}"
+    - "{{ win_cni_config_path }}"
+
+- name: Win CNI | Download CNI package with host-gw and flannel support on windows
+  win_get_url:
+    url: "{{ item }}"
+    dest: "{{ win_cni_installation_path }}/{{ item | basename }}"
+    force:
+    use_proxy: no
+  loop: "{{ win_cni_binaries }}"

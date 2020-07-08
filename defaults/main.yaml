@@ -1,0 +1,8 @@
+---
+win_cni_binaries:
+  - "https://github.com/Microsoft/SDN/raw/master/Kubernetes/flannel/l2bridge/cni/flannel.exe"
+  - "https://github.com/Microsoft/SDN/raw/master/Kubernetes/flannel/l2bridge/cni/win-bridge.exe"
+  - "https://github.com/Microsoft/SDN/raw/master/Kubernetes/flannel/l2bridge/cni/host-local.exe"
+
+win_cni_installation_path: "C:/k/cni"
+win_cni_config_path: "C:/k/cni/config"
