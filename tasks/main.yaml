@@ -1,17 +1,34 @@
 ---
+- name: Win CNI | Install PSCX
+  win_psmodule:
+    name: Pscx
+    state: present
+    allow_clobber: true
+
 - name: Win CNI | Ensure CNI directories exist
   win_file:
     path: "{{ item }}"
     state: directory
     recurse: yes
   loop:
-    - "{{ win_cni_installation_path }}"
-    - "{{ win_cni_config_path }}"
+    - "{{ win_cni_bin_dir }}"
+    - "{{ win_cni_conf_dir }}"
 
-- name: Win CNI | Download CNI package with host-gw and flannel support on windows
+- name: Win CNI | Download CNI package 
   win_get_url:
-    url: "{{ item }}"
-    dest: "{{ win_cni_installation_path }}/{{ item | basename }}"
-    force:
-    use_proxy: no
-  loop: "{{ win_cni_binaries }}"
+    url: "{{ win_cni_plugins_release_url }}"
+    dest: "{{ win_cni_bin_dir }}/{{ win_cni_plugins_release_url | basename }}"
+    force: yes
+
+- name: Win CNI | extract CNI plugins binaries tgz
+  win_unzip:
+    src: "{{ win_cni_bin_dir }}/{{ win_cni_plugins_release_url | basename }}"
+    dest: "{{ win_cni_bin_dir }}"
+    recurse: yes
+
+- name: Win CNI | extract CNI plugins binaries tar
+  win_unzip:
+    src: "{{ win_cni_bin_dir }}/{{ (win_cni_plugins_release_url | basename | splitext)[0] }}.tar"
+    dest: "{{ win_cni_bin_dir }}"
+    recurse: yes
+    creates: "{{ win_cni_bin_dir}}/flannel.exe"
