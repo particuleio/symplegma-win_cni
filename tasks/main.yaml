@@ -9,7 +9,7 @@
   win_file:
     path: "{{ item }}"
     state: directory
-    recurse: yes
+    recurse: true
   loop:
     - "{{ win_cni_bin_dir }}"
     - "{{ win_cni_conf_dir }}"
@@ -18,17 +18,17 @@
   win_get_url:
     url: "{{ win_cni_plugins_release_url }}"
     dest: "{{ win_cni_bin_dir }}/{{ win_cni_plugins_release_url | basename }}"
-    force: yes
+    force: true
 
 - name: Win CNI | extract CNI plugins binaries tgz
   win_unzip:
     src: "{{ win_cni_bin_dir }}/{{ win_cni_plugins_release_url | basename }}"
     dest: "{{ win_cni_bin_dir }}"
-    recurse: yes
+    recurse: true
 
 - name: Win CNI | extract CNI plugins binaries tar
   win_unzip:
     src: "{{ win_cni_bin_dir }}/{{ (win_cni_plugins_release_url | basename | splitext)[0] }}.tar"
     dest: "{{ win_cni_bin_dir }}"
-    recurse: yes
-    creates: "{{ win_cni_bin_dir}}/flannel.exe"
+    recurse: true
+    creates: "{{ win_cni_bin_dir }}/flannel.exe"
