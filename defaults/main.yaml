@@ -2,5 +2,5 @@
 win_cni_bin_dir: c:/opt/cni/bin
 win_cni_conf_dir: c:/etc/cni/net.d
 
-win_cni_plugins_version: v0.8.6
+win_cni_plugins_version: v1.1.1
 win_cni_plugins_release_url: https://github.com/containernetworking/plugins/releases/download/{{ win_cni_plugins_version }}/cni-plugins-windows-amd64-{{ win_cni_plugins_version }}.tgz
